@@ -1,18 +1,14 @@
 import * as vscode from 'vscode';
+import { WINDOW_COMMAND } from './data/constants';
 import {
   commandRunner,
+  createDeactivateCommand,
   createTransparencyCommand,
   getBlur,
   getTransparency
 } from './lib/utils';
-import {
-  DEFAULT_BLUR_VALUE,
-  DEFAULT_TRANSPARENCY_VALUE,
-  EXTENSION_NAME,
-  WINDOW_COMMAND
-} from './data/constants';
 
-export function activate(context: vscode.ExtensionContext) {
+function runExtension() {
   const transparency = getTransparency();
   const isBlurEnabled = getBlur();
 
@@ -34,10 +30,11 @@ export function activate(context: vscode.ExtensionContext) {
   }
 
   command += END_LINE_COMMAND;
-
-  // executes the command
   commandRunner(command);
+}
 
+export function activate(context: vscode.ExtensionContext) {
+  runExtension();
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
@@ -50,4 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-export function deactivate() {}
+export function deactivate() {
+  const DEACTIVATE_COMMAND = createDeactivateCommand();
+  commandRunner(DEACTIVATE_COMMAND);
+}
