@@ -1,6 +1,6 @@
 {
-  "name": "maron-blur-linux",
-  "displayName": "maron-blur-linux",
+  "name": "maron-blur",
+  "displayName": "maron-blur",
   "description": "Blur VSCode Window on Linux ",
   "version": "0.0.1",
   "engines": {
@@ -14,7 +14,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "maron-blur-linux.helloWorld",
+        "command": "maron-blur.helloWorld",
         "title": "Hello World"
       }
     ]
