@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import { homedir } from 'node:os';
 
 import {
   DEFAULT_BLUR_VALUE,
@@ -16,10 +15,12 @@ export function getTransparency(): number {
 
 export function getBlur(): boolean {
   const blur: boolean | undefined | null = vscode.workspace
-    .getConfiguration('vscode-blur-linux')
+    .getConfiguration('maron-blur')
     .get('blur');
 
-  if (typeof blur !== 'boolean') return DEFAULT_BLUR_VALUE;
+  if (typeof blur !== 'boolean') {
+    return DEFAULT_BLUR_VALUE;
+  }
   return blur;
 }
 
@@ -41,10 +42,8 @@ export function createDeactivateCommand() {
 
 /** Runs commands in the terminal */
 export function commandRunner(command: string) {
-  const shellPath = homedir();
-  const terminal = vscode.window.createTerminal(EXTENSION_NAME, shellPath);
+  const terminal = vscode.window.createTerminal(EXTENSION_NAME);
 
-  terminal.sendText(command, true);
-  terminal.sendText('clear', true);
-  terminal.sendText('exit');
+  terminal.sendText(command);
+  terminal.sendText('exit');      
 }

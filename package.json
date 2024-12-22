@@ -1,21 +1,44 @@
 {
   "name": "maron-blur",
-  "displayName": "maron-blur",
+  "displayName": "Maron Blur",
+  "publisher": "KainNhantumbo",
   "description": "Blur VSCode Window on Linux ",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.95.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Themes"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "maron-blur.helloWorld",
-        "title": "Hello World"
+        "command": "maron-blur.start",
+        "title": "Enable Blur Effect"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "maron-blur",
+        "properties": {
+          "maron-blur.opacity": {
+            "type": "integer",
+            "scope": "window",
+            "description": "Set the level of transparency to the window background. (Requires restart)",
+            "default": 90
+          },
+          "maron-blur.blur": {
+            "type": "boolean",
+            "scope": "window",
+            "description": "Activate blur effect to the window background. (Requires restart)",
+            "default": true
+          }
+        }
       }
     ]
   },
@@ -30,7 +53,7 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "check-types": "tsc --noEmit",
-    "lint": "eslint src",
+    "lint": "eslint src --fix",
     "test": "vscode-test"
   },
   "devDependencies": {
